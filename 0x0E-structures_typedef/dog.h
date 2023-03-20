@@ -10,7 +10,8 @@
 	 *
 	 * Description: Longer description
 	 */
-	struct dog
+
+	struct(dog)
 	{
 		char *name;
 		float age;
@@ -32,4 +33,5 @@
 	int _strlen(char *s);
 
 
-#endif
+	#endif
+
