@@ -35,7 +35,6 @@
 	 *
 	 * Return: the pointer to dest
 	 */
-
 	char *_strcpy(char *dest, char *src)
 	{
 		int len, i;
@@ -69,7 +68,6 @@
 	 *
 	 * Return: pointer to the new dog (Success), NULL otherwise
 	 */
-
 	dog_t *new_dog(char *name, float age, char *owner)
 	{
 		dog_t *dog;
