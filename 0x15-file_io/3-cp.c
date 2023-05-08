@@ -56,46 +56,46 @@ void close_file(int ab)
  */
 int main(int argc, char *argv[])
 {
-	int start, upto, y, c;
+	int from, to, y, c;
 	char *buffer;
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp file_start file_upto\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
 	buffer = create_buffer(argv[2]);
-	start = open(argv[1], O_RDONLY);
-	y = read(start, buffer, 1024);
-	upto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	from = open(argv[1], O_RDONLY);
+	y = read(from, buffer, 1024);
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
-		if (start == -1 || y == -1)
+		if (from == -1 || y == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Cannot read start file %s\n", argv[1]);
+				"Error: Cannot read from file %s\n", argv[1]);
 			free(buffer);
 			exit(98);
 		}
 
-		c = write(upto, buffer, y);
-		if (upto == -1 || c == -1)
+		c = write(from, buffer, y);
+		if (to == -1 || c == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Cannot write upto %s\n", argv[2]);
+				"Error: Can't write to %s\n", argv[2]);
 			free(buffer);
 			exit(99);
 		}
 
-		y = read(start, buffer, 1024);
-		upto = open(argv[2], O_WRONLY | O_APPEND);
+		y = read(from, buffer, 1024);
+		to = open(argv[2], O_WRONLY | O_APPEND);
 
 	} while (y > 0);
 
 	free(buffer);
-	close_file(start);
-	close_file(upto);
+	close_file(from);
+	close_file(to);
 
 	return (0);
 }
